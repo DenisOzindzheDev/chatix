@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+github:
+  client_id: <client_token>
+  client_secret: <client_secret>
+  redirect_url: http://localhost:8080/callback/github
+
+jwt:
+  private_key_path: ./keys/private.pem
+  public_key_path: ./keys/public.pem
+  ttl_minutes: 30
+
+postgres:
+  host: localhost
+  port: 5432
+  dbname: auth_db
+  user: postgres
+  password: postgres
+  sslmode: disable
