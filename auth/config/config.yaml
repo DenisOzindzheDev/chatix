@@ -2,8 +2,8 @@ server:
   port: 8080
 
 github:
-  client_id: <client_token>
-  client_secret: <client_secret>
+  client_id: <>
+  client_secret: <>
   redirect_url: http://localhost:8080/callback/github
 
 jwt:

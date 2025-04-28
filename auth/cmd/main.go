@@ -11,13 +11,14 @@ import (
 	"time"
 
 	"github.com/DenisOzindzheDev/chatix/auth/internal/config"
+	"github.com/DenisOzindzheDev/chatix/auth/internal/db"
 	"github.com/DenisOzindzheDev/chatix/auth/internal/github"
 	"github.com/DenisOzindzheDev/chatix/auth/internal/handler"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// config
+	//config
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalf("Config read error: %v", err)
@@ -25,11 +26,16 @@ func main() {
 	fmt.Println(cfg)
 	github.InitOAuth(cfg)
 
+	//db
+	if err := db.InitPostgres(cfg); err != nil {
+		log.Fatalf("Postgres init error: %v", err)
+	}
+
 	//router
 	router := gin.Default()
 	handler.RegisterRoutes(router)
 
-	// server
+	//server
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.Server.Port),
 		Handler: router,
